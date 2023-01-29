@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Go-CLI/helper"
 	"fmt"
 	"strings"
 )
@@ -19,7 +20,7 @@ func main() {
 	for remainingTickets > 0 && len(bookings) < 50 {
 
 		firstName, lastName, email, userTickets := getUserInput()
-		isValidName, isValidEmail, isValidTicketCount := validateUserInput(firstName, lastName, email, userTickets)
+		isValidName, isValidEmail, isValidTicketCount := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketCount {
 
@@ -60,15 +61,6 @@ func printFirstNames() []string {
 		firstNames = append(firstNames, splitNames[0])
 	}
 	return firstNames
-}
-
-func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	// super simple email validation for purpose of learning Go
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketCount := userTickets > 0 && userTickets <= remainingTickets
-
-	return isValidName, isValidEmail, isValidTicketCount
 }
 
 func getUserInput() (string, string, string, uint) {
